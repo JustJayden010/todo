@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 7, "column": 0}, "map": {"version":3,"sources":["file://C%3A/Users/JAYDEN/Documents/jayden/jayden/app/layout.tsx"],"sourcesContent":["'use client'\nimport \"./globals.css\";\nimport {createContext, useContext, useEffect, useState } from \"react\"\n\nexport default function RootLayout({\n  children,\n}: Readonly<{\n  children: React.ReactNode;\n}>) {\n\n  // const user = localStorage.getItem('userId')\n  // const {user, setUser} = useContext(UserContext)\n  \n  return (\n    <html lang=\"en\" name=\"viewport\" content=\"width=device-width, maximum-scale=1.0, users-scalable=no, initial-scale=1.0\">\n      <body className=\"select-none\">\n          {children}\n      </body>\n    </html>\n  );\n}\n"],"names":[],"mappings":";;;;AAAA;;;AAIe,SAAS,WAAW,EACjC,QAAQ,EAGR;IAEA,8CAA8C;IAC9C,kDAAkD;IAElD,qBACE,6LAAC;QAAK,MAAK;QAAK,MAAK;QAAW,SAAQ;kBACtC,cAAA,6LAAC;YAAK,WAAU;sBACX;;;;;;;;;;;AAIX;KAhBwB"}},
+    {"offset": {"line": 41, "column": 0}, "map": {"version":3,"sources":[],"names":[],"mappings":"A"}}]
+}
