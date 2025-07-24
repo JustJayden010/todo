@@ -6,8 +6,8 @@ const nextConfig: NextConfig = {
   images: {
     unoptimized: true,
   },
-  basePath: '/your-repo-name', // 👈 important!
-  assetPrefix: '/your-repo-name/',
+  // basePath: '/your-repo-name', // 👈 important!
+  // assetPrefix: '/your-repo-name/',
 };
 
 export default nextConfig;

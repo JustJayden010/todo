@@ -2,7 +2,6 @@
   "name": "nextjs-template",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://JAYDEN1608/github.com/todo",
  "scripts": {
   "dev": "next dev",
   "build": "next build",
