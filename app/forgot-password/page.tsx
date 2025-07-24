@@ -12,11 +12,54 @@ export default function ForgotPasswordPage() {
   const [confirmPassword, setConfirmPassword] = useState('');
   const router = useRouter();
 
-  const handleEmailSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    // TODO: Send OTP to email
+
+const handleEmailSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+  try {
+    const res = await fetch('/api/forgot-password/request', {
+      method: 'POST',
+      body: JSON.stringify({ email }),
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'Failed to send OTP');
     setStep('otp');
-  };
+  } catch (err) {
+    alert((err as Error).message);
+  }
+};
+
+const verifyOtp = async () => {
+  const code = otp.join('');
+  if (code.length !== 4) return alert('Enter full OTP');
+  try {
+    const res = await fetch('/api/forgot-password/verify', {
+      method: 'POST',
+      body: JSON.stringify({ email, otp: code }),
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'Invalid OTP');
+    setStep('reset');
+  } catch (err) {
+    alert((err as Error).message);
+  }
+};
+
+const resetPassword = async () => {
+  if (newPassword !== confirmPassword) return alert("Passwords don't match");
+  try {
+    const res = await fetch('/api/forgot-password/reset', {
+      method: 'POST',
+      body: JSON.stringify({ email, newPassword }),
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'Password reset failed');
+    router.push('/login');
+  } catch (err) {
+    alert((err as Error).message);
+  }
+};
+
+
 
   const handleOtpChange = (value: string, index: number) => {
     if (!/^[0-9]*$/.test(value)) return;
@@ -27,19 +70,6 @@ export default function ForgotPasswordPage() {
       const nextInput = document.getElementById(`otp-${index + 1}`);
       nextInput?.focus();
     }
-  };
-
-  const verifyOtp = async () => {
-    const code = otp.join('');
-    if (code.length !== 4) return alert('Enter full OTP');
-    // TODO: Verify OTP
-    setStep('reset');
-  };
-
-  const resetPassword = async () => {
-    if (newPassword !== confirmPassword) return alert("Passwords don't match");
-    // TODO: Reset password API call
-    router.push('/login');
   };
 
   return (
