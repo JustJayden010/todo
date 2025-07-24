@@ -12,7 +12,7 @@ export default function RootLayout({
   // const {user, setUser} = useContext(UserContext)
   
   return (
-    <html lang="en" name="viewport" content="width=device-width, maximum-scale=1.0, users-scalable=no, initial-scale=1.0">
+    <html lang="en" content="width=device-width, maximum-scale=1.0, users-scalable=no, initial-scale=1.0">
       <body className="select-none">
           {children}
       </body>
