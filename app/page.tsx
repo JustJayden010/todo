@@ -163,7 +163,7 @@ export default function LandingPage() {
                             {/* Front Side */}
                             <div className="card-face card-front">
                                 <img
-                                    src="/jayden-front.jpg"
+                                    src="/jayden.png"
                                     alt="Jayden Front"
                                     className="w-full h-full object-cover rounded-2xl"
                                 />
