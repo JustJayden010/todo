@@ -1,27 +1,45 @@
 import { supabase } from '@/lib/supabase';
 import bcrypt from 'bcryptjs';
-import jwt from 'jsonwebtoken';
 import { NextResponse } from 'next/server';
 
 export async function POST(req: Request) {
-  const { email, password } = await req.json();
+  const { email, password, name } = await req.json();
+  const hashedPassword = await bcrypt.hash(password, 10);
 
-  const { data: user, error } = await supabase
-    .from('users')
-    .select('*')
-    .eq('email', email)
-    .single(); // Get a single user
+  try {
+    // Check if user already exists
+    const { data: existingUsers, error: fetchError } = await supabase
+      .from('users')
+      .select('id')
+      .eq('email', email)
+      .limit(1);
 
-  if (error || !user || !(await bcrypt.compare(password, user.password))) {
-    return NextResponse.json({ error: 'Invalid credentials' }, { status: 401 });
+    if (fetchError) {
+      console.error(fetchError);
+      return NextResponse.json({ error: 'Error checking user' }, { status: 500 });
+    }
+
+    if (existingUsers && existingUsers.length > 0) {
+      return NextResponse.json({ error: 'User exists' }, { status: 400 });
+    }
+
+    // Insert new user
+    const { error: insertError } = await supabase.from('users').insert([
+      {
+        email,
+        password: hashedPassword,
+        name,
+      },
+    ]);
+
+    if (insertError) {
+      console.error(insertError);
+      return NextResponse.json({ error: 'Error creating user' }, { status: 500 });
+    }
+
+    return NextResponse.json({ success: true });
+  } catch (error) {
+    console.error(error);
+    return NextResponse.json({ error: 'Unexpected error' }, { status: 500 });
   }
-
-  const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET!, { expiresIn: '7d' });
-
-  return NextResponse.json({
-    success: true,
-    token,
-    email: user.email,
-    name: user.name,
-  });
 }
