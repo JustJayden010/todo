@@ -1,4 +1,4 @@
-import { db } from '@/lib/db';
+import { db } from '@/lib/supabase';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { NextResponse } from 'next/server';

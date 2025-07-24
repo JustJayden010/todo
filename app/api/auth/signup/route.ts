@@ -1,25 +1,27 @@
-import { db } from '@/lib/db';
+import { supabase } from '@/lib/supabase';
 import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
 import { NextResponse } from 'next/server';
 
 export async function POST(req: Request) {
-  const { email, password, name } = await req.json();
-  const hashedPassword = await bcrypt.hash(password, 10);
+  const { email, password } = await req.json();
 
-  try {
-    const existing = await db.query('SELECT * FROM users WHERE email=$1', [email]);
-    if (existing.rows.length > 0) {
-      return NextResponse.json({ error: 'User exists' }, { status: 400 });
-    }
+  const { data: user, error } = await supabase
+    .from('users')
+    .select('*')
+    .eq('email', email)
+    .single(); // Get a single user
 
-    await db.query(
-      'INSERT INTO users (email, password, name) VALUES ($1, $2, $3)',
-      [email, hashedPassword, name]
-    );
-
-    return NextResponse.json({ success: true });
-  } catch (error) {
-    console.error(error);
-    return NextResponse.json({ error: 'Error creating user' }, { status: 500 });
+  if (error || !user || !(await bcrypt.compare(password, user.password))) {
+    return NextResponse.json({ error: 'Invalid credentials' }, { status: 401 });
   }
+
+  const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET!, { expiresIn: '7d' });
+
+  return NextResponse.json({
+    success: true,
+    token,
+    email: user.email,
+    name: user.name,
+  });
 }
