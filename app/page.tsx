@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, { JSX, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import {
   Star,
@@ -902,7 +902,7 @@ const Testimonials: React.FC = () => {
 
   useEffect(() => {
     resetTimer();
-    return () => timerRef.current && clearInterval(timerRef.current);
+    // return () => timerRef.current && clearInterval(timerRef.current);
   }, []);
 
   const onPointerDown = (e: React.PointerEvent) => {
@@ -1148,7 +1148,7 @@ const AboutMe: React.FC = () => (
         <div className="relative w-full h-full transition-transform duration-700 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]">
           {/* Front */}
           <div className="absolute inset-0 [backface-visibility:hidden]">
-            <img src="/jayden.png" alt="Jayden Front" className="w-full h-full object-cover rounded-2xl border border-white/20" />
+            <img src="/img.png" alt="Jayden Front" className="w-full h-full object-cover rounded-2xl border border-white/20" />
           </div>
           {/* Back */}
           <div className="absolute inset-0 [transform:rotateY(180deg)] [backface-visibility:hidden]">
