@@ -246,7 +246,7 @@ function useKonamiCode(onUnlock: () => void) {
 
 export const GlassHeader: React.FC<{
   themeKey: keyof typeof THEMES;
-  setThemeKey: (k: keyof typeof THEMES) => void;
+  setThemeKey: (k: any ) => void;
   autoTheme: boolean;
   setAutoTheme: (v: boolean) => void;
   onSecretClick: () => void;

@@ -7,7 +7,7 @@ import { GlassHeader } from '../page';
 
 type ThemeKey  = 'dawn' | 'day' | 'dusk' | 'night';
 
-export const THEMES: Record<string, { name: string; gradient: string; text?: string; badge?: string }> = {
+const THEMES: Record<string, { name: string; gradient: string; text?: string; badge?: string }> = {
   dawn: {
     name: 'Dawn',
     gradient: 'bg-gradient-to-br from-rose-200 via-pink-200 to-orange-200',
