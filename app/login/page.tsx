@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { Loader2, Mail, Lock, Eye, EyeOff, ShieldCheck } from 'lucide-react';
 import { GlassHeader } from '../page';
 
-type ThemeKey = 'dawn' | 'day' | 'dusk' | 'night';
+type ThemeKey  = 'dawn' | 'day' | 'dusk' | 'night';
 
 export const THEMES: Record<string, { name: string; gradient: string; text?: string; badge?: string }> = {
   dawn: {
@@ -119,7 +119,7 @@ export default function LoginPage() {
   const [err, setErr] = useState<string | null>(null);
 
   const bgClass = useMemo(() => `bg-gradient-to-br ${THEMES[themeKey].gradient}`, [themeKey]);
-  const ringClass = useMemo(() => THEMES[themeKey].ring, [themeKey]);
+  // const ringClass = useMemo(() => THEMES[themeKey], [themeKey]);
 
   async function handleLogin(e: React.FormEvent) {
     e.preventDefault();
@@ -155,7 +155,7 @@ export default function LoginPage() {
       {/* Correct GlassHeader usage (matches your example) */}
       <GlassHeader
         themeKey={themeKey}
-        setThemeKey={(k: ThemeKey) => {
+        setThemeKey={(k: ThemeKey  ) => {
           setThemeKey(k);
           setAutoTheme(false);
         }}
@@ -206,7 +206,7 @@ export default function LoginPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className={`w-full pl-10 pr-3 py-3 rounded-lg bg-white/15 border border-white/25 placeholder-white/70 text-white
-                            outline-none ${ringClass} focus:ring-2 transition-shadow`}
+                            outline-none  focus:ring-2 transition-shadow`}
                 placeholder="you@example.com"
                 aria-label="Email"
               />
@@ -225,7 +225,7 @@ export default function LoginPage() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 className={`w-full pl-10 pr-10 py-3 rounded-lg bg-white/15 border border-white/25 placeholder-white/70 text-white
-                            outline-none ${ringClass} focus:ring-2 transition-shadow`}
+                            outline-none focus:ring-2 transition-shadow`}
                 placeholder="••••••••"
                 aria-label="Password"
               />
