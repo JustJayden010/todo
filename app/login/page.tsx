@@ -3,7 +3,8 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Loader2, Mail, Lock, Eye, EyeOff, ShieldCheck } from 'lucide-react';
-import { GlassHeader } from '../page';
+import { GlassHeader } from '../components/glassHeader';
+// import { GlassHeader } from '../page';
 
 type ThemeKey  = 'dawn' | 'day' | 'dusk' | 'night';
 
